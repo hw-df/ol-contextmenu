@@ -5,7 +5,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import includePaths from 'rollup-plugin-includepaths';
 import { eslint } from 'rollup-plugin-eslint';
 import bundleSize from 'rollup-plugin-filesize';
-import { terser } from 'rollup-plugin-terser';
 import sass from 'rollup-plugin-sass';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
@@ -82,11 +81,7 @@ export default [
       format: 'umd',
       name: 'ContextMenu',
     },
-    plugins: [
-      sass(cssMinOpts),
-      ...plugins,
-      terser({ output: { comments: /^!/ } }),
-    ],
+    plugins: [sass(cssMinOpts), plugins],
   },
   {
     external,
