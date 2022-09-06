@@ -1,6 +1,6 @@
 {
   "name": "ol-contextmenu",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Custom Context Menu for Openlayers",
   "main": "dist/ol-contextmenu.js",
   "author": "Jonatas Walker",

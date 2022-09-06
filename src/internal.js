@@ -252,6 +252,14 @@ export class Internal {
           false
         );
       })(this.items[index].callback);
+    } else {
+      li.addEventListener(
+        'click',
+        function (evt) {
+          evt.preventDefault();
+        },
+        false
+      );
     }
   }
 }
