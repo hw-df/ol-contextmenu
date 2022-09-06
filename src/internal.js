@@ -219,7 +219,10 @@ export class Internal {
       'pointerdown',
       {
         handleEvent: function (e) {
-          if (this_.opened) {
+          const isSubmenuItem = e.target.parentNode.classList.contains(
+            'ol-ctx-menu-submenu'
+          );
+          if (this_.opened && !isSubmenuItem) {
             this_.closeMenu();
             e.stopPropagation();
             evt.target.removeEventListener(e.type, this, false);
