@@ -2,7 +2,7 @@
   /*!
   * ol-contextmenu - v4.1.1
   * https://github.com/jonataswalker/ol-contextmenu
-  * Built: Fri Sep 02 2022 14:59:03 GMT+0200 (Central European Summer Time)
+  * Built: Tue Sep 06 2022 11:27:26 GMT+0200 (Central European Summer Time)
   */
 
 (function (global, factory) {
@@ -452,6 +452,7 @@
   };
 
   Internal.prototype.closeMenu = function closeMenu () {
+    console.log('close menu');
     this.opened = false;
     addClass(this.Base.container, CSS_VARS.hidden);
     this.Base.dispatchEvent({
@@ -506,11 +507,14 @@
       'pointerdown',
       {
         handleEvent: function (e) {
+          console.log('pointerdown event', evt, this_);
+          /*
           if (this_.opened) {
             this_.closeMenu();
             e.stopPropagation();
             evt.target.removeEventListener(e.type, this, false);
           }
+          */
         },
       },
       false
@@ -518,6 +522,7 @@
   };
 
   Internal.prototype.handleMapMoveEvent = function handleMapMoveEvent (evt) {
+    console.log('handle map move event', evt);
     this.closeMenu();
   };
 
@@ -528,6 +533,7 @@
         li.addEventListener(
           'click',
           function (evt) {
+            console.log('li click event', evt);
             evt.preventDefault();
             var obj = {
               coordinate: this_.getCoordinateClicked(),
