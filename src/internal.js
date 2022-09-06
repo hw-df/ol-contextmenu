@@ -165,6 +165,7 @@ export class Internal {
   }
 
   closeMenu() {
+    console.log('close menu');
     this.opened = false;
     addClass(this.Base.container, CSS_VARS.hidden);
     this.Base.dispatchEvent({
@@ -219,6 +220,7 @@ export class Internal {
       'pointerdown',
       {
         handleEvent: function (e) {
+          console.log('pointerdown event', evt);
           if (this_.opened) {
             this_.closeMenu();
             e.stopPropagation();
@@ -231,6 +233,7 @@ export class Internal {
   }
 
   handleMapMoveEvent(evt) {
+    console.log('handle map move event', evt);
     this.closeMenu();
   }
 
@@ -241,6 +244,7 @@ export class Internal {
         li.addEventListener(
           'click',
           function (evt) {
+            console.log('li click event', evt);
             evt.preventDefault();
             const obj = {
               coordinate: this_.getCoordinateClicked(),
