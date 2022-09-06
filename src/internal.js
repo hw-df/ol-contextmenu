@@ -165,6 +165,7 @@ export class Internal {
   }
 
   closeMenu() {
+    console.log('close menu');
     this.opened = false;
     addClass(this.Base.container, CSS_VARS.hidden);
     this.Base.dispatchEvent({
@@ -219,11 +220,14 @@ export class Internal {
       'pointerdown',
       {
         handleEvent: function (e) {
+          console.log('pointerdown event', evt, this_, e);
+          /*
           if (this_.opened) {
             this_.closeMenu();
             e.stopPropagation();
             evt.target.removeEventListener(e.type, this, false);
           }
+          */
         },
       },
       false
@@ -231,6 +235,7 @@ export class Internal {
   }
 
   handleMapMoveEvent(evt) {
+    console.log('handle map move event', evt);
     this.closeMenu();
   }
 
@@ -241,6 +246,7 @@ export class Internal {
         li.addEventListener(
           'click',
           function (evt) {
+            console.log('li click event', evt);
             evt.preventDefault();
             const obj = {
               coordinate: this_.getCoordinateClicked(),
@@ -252,6 +258,15 @@ export class Internal {
           false
         );
       })(this.items[index].callback);
+    } else {
+      li.addEventListener(
+        'click',
+        function (evt) {
+          console.log('li click event ALTERNATIVE DO NOTHING', evt);
+          evt.preventDefault();
+        },
+        false
+      );
     }
   }
 }

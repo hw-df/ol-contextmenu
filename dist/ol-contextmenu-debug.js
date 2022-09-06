@@ -2,14 +2,14 @@
   /*!
   * ol-contextmenu - v4.1.1
   * https://github.com/jonataswalker/ol-contextmenu
-  * Built: Fri Sep 02 2022 14:59:03 GMT+0200 (Central European Summer Time)
+  * Built: Tue Sep 06 2022 15:06:39 GMT+0200 (Central European Summer Time)
   */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('ol/control/Control')) :
   typeof define === 'function' && define.amd ? define(['ol/control/Control'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ContextMenu = factory(global.ol.control.Control));
-})(this, (function (Control) { 'use strict';
+}(this, (function (Control) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -362,11 +362,11 @@
   };
 
   Internal.prototype.getItemsLength = function getItemsLength () {
-      var this$1$1 = this;
+      var this$1 = this;
 
     var count = 0;
     Object.keys(this.items).forEach(function (k) {
-      if (this$1$1.items[k].submenu || this$1$1.items[k].separator) { return; }
+      if (this$1.items[k].submenu || this$1.items[k].separator) { return; }
       count++;
     });
     return count;
@@ -381,7 +381,7 @@
   };
 
   Internal.prototype.positionContainer = function positionContainer (pixel) {
-      var this$1$1 = this;
+      var this$1 = this;
 
     var container = this.Base.container;
     var mapSize = this.map.getSize();
@@ -436,7 +436,7 @@
           sub_top = sub_height - (viewport.h - sub_offset.top);
           sub.style.top = "-" + sub_top + "px";
         }
-        sub.style.left = this$1$1.submenu.lastLeft;
+        sub.style.left = this$1.submenu.lastLeft;
       });
     }
   };
@@ -452,6 +452,7 @@
   };
 
   Internal.prototype.closeMenu = function closeMenu () {
+    console.log('close menu');
     this.opened = false;
     addClass(this.Base.container, CSS_VARS.hidden);
     this.Base.dispatchEvent({
@@ -506,11 +507,14 @@
       'pointerdown',
       {
         handleEvent: function (e) {
+          console.log('pointerdown event', evt, this_, e);
+          /*
           if (this_.opened) {
             this_.closeMenu();
             e.stopPropagation();
             evt.target.removeEventListener(e.type, this, false);
           }
+          */
         },
       },
       false
@@ -518,6 +522,7 @@
   };
 
   Internal.prototype.handleMapMoveEvent = function handleMapMoveEvent (evt) {
+    console.log('handle map move event', evt);
     this.closeMenu();
   };
 
@@ -528,6 +533,7 @@
         li.addEventListener(
           'click',
           function (evt) {
+            console.log('li click event', evt);
             evt.preventDefault();
             var obj = {
               coordinate: this_.getCoordinateClicked(),
@@ -539,6 +545,15 @@
           false
         );
       })(this.items[index].callback);
+    } else {
+      li.addEventListener(
+        'click',
+        function (evt) {
+          console.log('li click event ALTERNATIVE DO NOTHING', evt);
+          evt.preventDefault();
+        },
+        false
+      );
     }
   };
 
@@ -580,7 +595,7 @@
   };
 
   Html.prototype.addMenuEntry = function addMenuEntry (item) {
-      var this$1$1 = this;
+      var this$1 = this;
 
     if (item.items && Array.isArray(item.items)) {
       // submenu - only a second level
@@ -598,7 +613,7 @@
       li.appendChild(sub);
 
       item.items.forEach(function (each) {
-        this$1$1.generateHtmlAndPublish(sub, each, true);
+        this$1.generateHtmlAndPublish(sub, each, true);
       });
     } else {
       this.generateHtmlAndPublish(this.container, item);
@@ -814,8 +829,8 @@
     };
 
     return Base;
-  }(Control__default["default"]));
+  }(Control__default['default']));
 
   return Base;
 
-}));
+})));
