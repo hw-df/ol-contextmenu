@@ -1,6 +1,5 @@
 import { readFileSync } from 'fs';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import buble from 'rollup-plugin-buble';
 import commonjs from 'rollup-plugin-commonjs';
 import includePaths from 'rollup-plugin-includepaths';
 import { eslint } from 'rollup-plugin-eslint';
@@ -68,7 +67,6 @@ const plugins = [
   bundleSize(),
   nodeResolve(),
   commonjs(),
-  buble({ target: { ie: 11 } }),
 ];
 
 export default [

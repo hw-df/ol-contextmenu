@@ -4,29 +4,22 @@
   <a href="https://travis-ci.org/jonataswalker/ol-contextmenu">
     <img src="https://travis-ci.org/jonataswalker/ol-contextmenu.svg?branch=master" alt="build status">
   </a>
-  <a href="https://www.npmjs.com/package/ol-contextmenu">
-    <img src="https://img.shields.io/npm/v/ol-contextmenu.svg"
+  <a href="https://www.npmjs.com/package/ol7-contextmenu">
+    <img src="https://img.shields.io/npm/v/ol7-contextmenu.svg"
       alt="npm version">
   </a>
   <a href="https://github.com/jonataswalker/ol-contextmenu/blob/master/LICENSE">
     <img src="https://img.shields.io/npm/l/ol-contextmenu.svg"
       alt="license">
   </a>
-  <a href="https://david-dm.org/jonataswalker/ol-contextmenu">
-    <img src="https://david-dm.org/jonataswalker/ol-contextmenu/status.svg"
-      alt="dependency status">
-  </a>
-  <a href="https://david-dm.org/jonataswalker/ol-contextmenu">
-    <img src="https://david-dm.org/jonataswalker/ol-contextmenu/dev-status.svg" alt="devDependency status">
-  </a>
 </p>
 
-A `contextmenu` extension for [OpenLayers](http://openlayers.org/). **Requires** OpenLayers **v3.11.0** or higher.
+A `contextmenu` extension for [OpenLayers](http://openlayers.org/). **Requires** OpenLayers **v7.0.0** or higher.
 
 ![contextmenu anim](https://raw.githubusercontent.com/jonataswalker/ol-contextmenu/screenshot/images/anim.gif)
 
 ## Demo
-You can see [here a demo](http://rawgit.com/jonataswalker/ol-contextmenu/master/examples/contextmenu.html) or [JSFiddle](https://jsfiddle.net/jonataswalker/ooxs1w5d/).
+You can see [here a demo](https://codesandbox.io/s/openlayers-7-contextmenu-9th0sv)
 
 ## How to use it?
 ##### NPM

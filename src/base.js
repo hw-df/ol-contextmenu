@@ -20,13 +20,20 @@ export default class Base extends Control {
       '@param `opt_options` should be object type!'
     );
 
-    this.options = mergeOptions(DEFAULT_OPTIONS, opt_options);
+    let options = mergeOptions(DEFAULT_OPTIONS, opt_options);
+
+    const element = Html.createContainer(true, options.width);
+
+    super({
+      element: element,
+    });
+
+    this.container = this.element = element;
+    this.options = options;
     this.disabled = false;
 
     this.Internal = new Internal(this);
     this.Html = new Html(this);
-
-    super({ element: this.container });
   }
 
   /**

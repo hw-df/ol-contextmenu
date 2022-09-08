@@ -12,18 +12,18 @@ export class Html {
    */
   constructor(base) {
     this.Base = base;
-    this.Base.container = this.container = this.createContainer(true);
+    this.container = this.Base.container;
     return this;
   }
 
-  createContainer(hidden) {
+  static createContainer(hidden, width) {
     const container = document.createElement('div');
     const ul = document.createElement('ul');
     const klasses = [CSS_VARS.container, CSS_VARS.unselectable];
 
     hidden && klasses.push(CSS_VARS.hidden);
     container.className = klasses.join(' ');
-    container.style.width = parseInt(this.Base.options.width, 10) + 'px';
+    container.style.width = parseInt(width, 10) + 'px';
     container.appendChild(ul);
     return container;
   }
@@ -55,7 +55,10 @@ export class Html {
       }
 
       let li = this.generateHtmlAndPublish(this.container, item);
-      let sub = this.createContainer();
+      let sub = this.constructor.createContainer(
+        false,
+        this.Base.options.width
+      );
       sub.style.left =
         this.Base.Internal.submenu.lastLeft || this.Base.Internal.submenu.left;
       li.appendChild(sub);
