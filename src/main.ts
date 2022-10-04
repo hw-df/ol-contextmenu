@@ -1,11 +1,10 @@
 import type { Pixel } from 'ol/pixel';
-import type { Coordinate } from 'ol/coordinate';
+import { Coordinate } from 'ol/coordinate';
 import OlMap from 'ol/Map';
 import Control from 'ol/control/Control';
-import BaseEvent from 'ol/events/Event';
 
 import { CSS_CLASSES, DEFAULT_ITEMS, DEFAULT_OPTIONS } from './constants';
-import { CallbackObject, CustomEventTypes, EventTypes, Item, MenuEntry, Options } from './types';
+import { CallbackObject, ContextMenuEvent, CustomEventTypes, EventTypes, Item, MenuEntry, Options } from './types';
 import emitter from './emitter';
 import { addMenuEntries, getLineHeight } from './helpers/dom';
 
@@ -29,6 +28,10 @@ export default class ContextMenu extends Control {
     protected entryCallbackEventListener: (evt: MouseEvent) => void;
 
     protected mapMoveListener: () => void;
+
+    protected beforeOpenHandler: (coordinate: Coordinate, pixel: Pixel) => void;
+
+    protected closeHandler: () => void;
 
     protected lineHeight = 0;
 
@@ -70,6 +73,12 @@ export default class ContextMenu extends Control {
         this.mapMoveListener = () => {
             this.handleMapMove();
         };
+        this.beforeOpenHandler = (coordinate, pixel) => {
+            this.options.beforeOpenHandler(coordinate, pixel);
+        }
+        this.closeHandler = () => {
+            this.options.closeHandler();
+        }
         this.disabled = false;
         this.opened = false;
 
@@ -119,7 +128,8 @@ export default class ContextMenu extends Control {
     closeMenu() {
         this.opened = false;
         this.container.classList.add(CSS_CLASSES.hidden);
-        this.dispatchEvent(CustomEventTypes.CLOSE);
+        // this.dispatchEvent(CustomEventTypes.CLOSE);
+        this.closeHandler();
     }
 
     isOpen() {
@@ -203,11 +213,14 @@ export default class ContextMenu extends Control {
     protected handleContextMenu(evt: MouseEvent) {
         this.coordinate = this.map.getEventCoordinate(evt);
         this.pixel = this.map.getEventPixel(evt);
+        /*
         this.dispatchEvent({
             type: CustomEventTypes.BEFOREOPEN,
             pixel: this.pixel,
             coordinate: this.coordinate,
-        } as unknown as BaseEvent);
+        } as ContextMenuEvent);
+        */
+        this.beforeOpenHandler(this.coordinate, this.pixel);
 
         if (this.disabled) return;
 
@@ -216,7 +229,9 @@ export default class ContextMenu extends Control {
             evt.preventDefault();
         }
 
-        this.openMenu();
+        setTimeout(() => { 
+            this.openMenu(); 
+        });
 
         evt.target?.addEventListener(
             'pointerdown',

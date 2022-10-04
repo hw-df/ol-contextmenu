@@ -7,13 +7,14 @@ import { transform } from 'ol/proj';
 import { Style, Icon, Text } from 'ol/style';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
-import { format } from 'ol/coordinate';
+import { Coordinate, format } from 'ol/coordinate';
 import Point from 'ol/geom/Point';
 
 import ContextMenu from 'ol-contextmenu';
-import { Item, ItemWithNested, SingleItem } from 'ol-contextmenu/dist/types';
+import { Item, ItemWithNested, SingleItem, ContextMenuEvent } from 'ol-contextmenu/dist/types';
 
 import './style.css';
+import { Pixel } from 'ol/pixel';
 
 const view = new View({ center: [0, 0], zoom: 4 });
 const vectorLayer = new VectorLayer({ source: new VectorSource() });
@@ -97,26 +98,36 @@ const contextmenu = new ContextMenu({
     width: 200,
     defaultItems: true,
     items,
+    beforeOpenHandler: myBeforeOpenHandler
 });
 
 map.addControl(contextmenu);
 
 console.log({ contextmenu });
 
-// @ts-ignore
-contextmenu.on('beforeopen', (evt) => {
+contextmenu.on('beforeopen', (evt:ContextMenuEvent) => {
+    console.log('beforeopen!!!', { evt });
     console.log({ evt });
+});
+
+contextmenu.on('close', (evt:ContextMenuEvent) => {
+    console.log('close!!!', { evt });
 });
 
 map.on('moveend', () => {
     console.log('moveend', contextmenu.isOpen());
 });
 
-function elastic(t) {
+function myBeforeOpenHandler(coordinate: Coordinate, pixel: Pixel) {
+    console.log('MyBeforeOpen!!', coordinate, pixel);
+    console.log('this???', this);
+}
+
+function elastic(t: number) {
     return 2 ** (-10 * t) * Math.sin(((t - 0.075) * (2 * Math.PI)) / 0.3) + 1;
 }
 
-function center(obj) {
+function center(obj: any) {
     view.animate({
         duration: 700,
         easing: elastic,
@@ -124,7 +135,7 @@ function center(obj) {
     });
 }
 
-function marker(obj) {
+function marker(obj: any) {
     const coord4326 = transform(obj.coordinate, 'EPSG:3857', 'EPSG:4326');
     const template = 'Coordinate is ({x} | {y})';
     const iconStyle = new Style({
