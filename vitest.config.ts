@@ -15,7 +15,6 @@ export default defineConfig({
                         provider: webdriverio(),
                     },
                     include: [
-                        'tests/browser/**/*.{test,spec}.ts',
                         'tests/**/*.browser.{test,spec}.ts',
                     ],
                     name: 'browser',
@@ -25,7 +24,6 @@ export default defineConfig({
                 test: {
                     environment: 'jsdom',
                     include: [
-                        'tests/unit/**/*.{test,spec}.ts',
                         'tests/**/*.unit.{test,spec}.ts',
                     ],
                     name: 'unit',
