@@ -33,7 +33,7 @@ export function getLineHeight(container: HTMLDivElement): number {
     cloned.append(element2)
     container.parentNode?.append(cloned)
 
-    const clonedStyle = globalThis.getComputedStyle(cloned)
+    const clonedStyle = getComputedStyle(cloned)
     const paddingTop = Number.parseInt(clonedStyle.paddingTop, 10)
     const paddingBottom = Number.parseInt(clonedStyle.paddingBottom, 10)
 
